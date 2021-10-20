@@ -1,0 +1,88 @@
+---
+title: "Text Mining Correlation"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+#install.packages("ggpubr")
+library("ggpubr")
+library("readxl")
+
+data <- read_excel("G:/My Drive/BAN 675/Group Project/Sentiment_Output.xlsx")
+View(data)
+SentChg <- data$`%_Change...4`
+DeathChg <- data$`%_Change...6`
+```
+
+```{r}
+#correlation on % change of sentiment compared to % change in new deaths
+cor(SentChg,DeathChg, method = c("pearson", "kendall","spearman"))
+cor.test(SentChg,DeathChg, method = c("pearson", "kendall","spearman"), use="complete.obs")
+```
+
+```{r}
+#scatterplot with % change of sentiment compared to % change in new deaths
+#doesn't run right now, errors out
+#library("ggpubr")
+# ggscatter(data, x=SentChg, y=DeathChg,
+#           add = "reg.line",
+#           conf.int=TRUE,
+#           cor.coef=TRUE,
+#           cor.method="pearson",
+#           xlab = "% change in sentiment", ylab = "% change in new deaths")
+
+#ggscatter(data, x=SentChg, y=DeathChg)
+```
+
+
+
+```{r}
+plot(x=SentChg, y=DeathChg, xlab= '% change in sentiment', ylab= '% change in deaths')
+```
+
+
+
+
+```{r}
+#correlation on compound sentiment compared to new deaths
+cor(data$Compound_Sentiment,data$New_Death, method = c("pearson", "kendall","spearman"))
+cor.test(data$Compound_Sentiment,data$New_Death, method = c("pearson", "kendall","spearman"), use="complete.obs")
+```
+
+```{r}
+#ggscatter(x=data$Compound_Sentiment,y=data$New_Death, add="reg.line", conf.int=TRUE, cor.method="pearson", xlab = "Compound Sentiment", ylab = "New Deaths from Coronovirus")
+```
+
+
+```{r}
+plot(x=data$Compound_Sentiment, y=data$New_Death, xlab= 'Twitter Sentiment', ylab='# of new Deaths due to Covid19')
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
